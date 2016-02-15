@@ -11,6 +11,8 @@ Following software packages are required for csw.
  zeromq-2.1.11.tar.gz
  Redis
 
+Note that, as of now, binaries are copied into this repo, just to avoid downloads, in case you need to create box multiple times. It helps if you have slower internet speeds. It can be moved out later.
+
 All this is automatically installed on the vagrant virtual box with Ansible.
 The virtual machine is bento/centos-7.1.
 
