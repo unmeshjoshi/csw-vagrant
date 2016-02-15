@@ -31,6 +31,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "192.168.33.10"
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "ansible/playbook.yml"
+    ansible.raw_arguments = "-M ansible/modules"
   end
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -43,7 +44,7 @@ Vagrant.configure(2) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder ".", "/vagrant"
-
+  config.vm.synced_folder '~/.ivy2', '/home/vagrant/.ivy2'
   config.vm.synced_folder '.', '/vagrant/deployment'
   config.vm.synced_folder '../csw', '/vagrant/csw'
   config.vm.synced_folder '../csw-pkg-demo', '/vagrant/csw-pkg-demo'
