@@ -1,13 +1,12 @@
 - hosts: all
   sudo: yes
   tasks:
-    - include: tasks/sbt.yml
     - include: tasks/jdk.yml
+    - include: tasks/sbt.yml
     - include: tasks/zeromq.yml
     - include: tasks/redis.yml
     - include: tasks/hornetq.yml
     - include: tasks/scala.yml
-    - include: tasks/sbt.yml
     - include: tasks/bashrc.yml
 
 

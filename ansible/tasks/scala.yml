@@ -1,8 +1,16 @@
 ---
+
+- name: Check if scala is already installed
+  stat: path=/opt/scala-2.11.6
+  register: scala_installed
+
+
 - name: Download Scala
   get_url: url=http://downloads.typesafe.com/scala/2.11.6/scala-2.11.6.tgz
   args:
     dest: /tmp
+  when: scala_installed.stat.exists == False
 
 - name: unarchive scala
   unarchive: src=/tmp/scala-2.11.6.tgz dest=/opt copy=no
+  when: scala_installed.stat.exists == False

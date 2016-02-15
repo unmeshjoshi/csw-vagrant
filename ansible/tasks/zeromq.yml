@@ -18,8 +18,7 @@
   get_url: url="http://download.zeromq.org/zeromq-2.1.11.tar.gz"
   args:
     dest: /tmp/
-    sha256sum: 57fa9205bda2813c6f7645d1d6016838d27bac833c1edebaecc7f3626144711a
-  when: zeromq_installed.rc == 1
+  when: zeromq_installed.stat.exists == False
 
 - name: Explode ZeroMQ Code
   unarchive: src="/tmp/zeromq-2.1.11.tar.gz" dest=/tmp/ copy=no
