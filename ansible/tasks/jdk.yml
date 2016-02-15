@@ -1,0 +1,22 @@
+---
+- name: Get JDK
+  get_url_advanced: url="http://download.oracle.com/otn-pub/java/jdk/8u66-b17/jdk-8u66-linux-x64.tar.gz"
+  args:
+    dest: /tmp/jdk-8u66-linux-x64.tar.gz
+    sha256sum: a6261a38e7197e77bc1ef21ef37b84299c99dbcfe2ccb35418be00dfda175d92
+    headers: "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie"
+
+- name: Explode JDK tar
+  unarchive: src=/tmp/jdk-8u66-linux-x64.tar.gz dest=/opt copy=no
+
+- name: Setup Java binaries
+
+  shell: alternatives --install /usr/bin/java java /opt/jdk1.8.0_73/bin/java 1
+
+- name: Setup Javac binaries
+
+  shell: alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_73/bin/javac 1
+
+- name: Setup Jar binaries
+
+  shell: alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_73/bin/jar 1

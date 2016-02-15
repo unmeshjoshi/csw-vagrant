@@ -1,0 +1,9 @@
+---
+- name: Install SBT Repo
+  get_url: url='https://bintray.com/sbt/rpm/rpm'
+  args:
+    dest: /etc/yum.repos.d/bintray-sbt-rpm.repo
+    sha256sum: b23e9e9e105cdf4007a8ad29eccc034e3859634e9312a7d3f523864b166911fd
+
+- name: Install SBT
+  yum: name=sbt state=latest

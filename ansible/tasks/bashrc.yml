@@ -1,0 +1,14 @@
+- name: Put LD_LIBRARY_PATH for zeromq
+  lineinfile: 
+   dest=/home/vagrant/.bashrc 
+   line='export LD_LIBRARY_PATH=/usr/local/lib'
+
+- name: Put scala and sbt in path
+  lineinfile:
+    dest=/home/vagrant/.bashrc
+    line='export PATH=/opt/sbt/bin:/opt/scala-2.11.6/bin:.:$PATH'
+
+- name: Start redis
+  lineinfile:
+    dest=/home/vagrant/.bashrc
+    line='sudo service redis start'

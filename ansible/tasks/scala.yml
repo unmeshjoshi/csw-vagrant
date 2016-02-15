@@ -1,0 +1,8 @@
+---
+- name: Download Scala
+  get_url: url=http://downloads.typesafe.com/scala/2.11.6/scala-2.11.6.tgz
+  args:
+    dest: /tmp
+
+- name: unarchive scala
+  unarchive: src=/tmp/scala-2.11.6.tgz dest=/opt copy=no

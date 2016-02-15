@@ -1,0 +1,19 @@
+---
+- yum: name=libaio
+
+- name: Check if  HornetQ is already installed
+  stat: path=/opt/hornetq/hornetq-2.4.0.Final
+  register: hornetq_installed
+
+- name: Download HornetQ
+  get_url: url=http://downloads.jboss.org/hornetq/hornetq-2.4.0.Final-bin.tar.gz
+  args:
+    dest: /tmp
+
+- name: Explode HornetQ
+  unarchive: src=/tmp/hornetq-2.4.0.Final-bin.tar.gz copy=no dest=/opt
+  when: hornetq_installed.stat.exists == False
+
+- name: Rename the HornetQ directory
+  command: mv /opt/hornetq-2.4.0.Final /opt/hornetq
+  when: hornetq_installed.stat.exists == False

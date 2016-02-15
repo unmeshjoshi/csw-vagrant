@@ -1,0 +1,4 @@
+---
+- name: Install EPEL repo required for redis
+  yum: name=epel-release
+

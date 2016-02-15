@@ -1,0 +1,8 @@
+- name: Creates .ivy directory
+  file: path=/home/vagrant/.ivy state=directory
+
+- name: Explode ivy cache with all the dependecies
+  unarchive: src=/vagrant/binaries/ivy2.tar.gz dest=/ copy=no
+
+- name: Give correct permissions
+  file: path=/home/vagrant/.ivy2 owner=vagrant group=vagrant mode=0777
