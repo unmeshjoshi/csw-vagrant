@@ -4,14 +4,13 @@ TMT Common Software Vagrant setup
 This repository has ansible scripts to provision Centos 7.1 linux with all the software required to run CSW. This also has a vagrant box which can be run on any developer machine.
 Following software packages are required for csw. 
 
- hornetq-2.4.0.Final-bin.tar.gz
- jdk-8u73-linux-x64.tar.gz
- sbt-0.13.8.tgz
- scala-2.11.6.tgz
- zeromq-2.1.11.tar.gz
- Redis
 
-Note that, as of now, binaries are copied into this repo, just to avoid downloads, in case you need to create box multiple times. It helps if you have slower internet speeds. It can be moved out later.
+ * hornetq-2.4.0
+ * jdk-8u73-linux-x64
+ * sbt-0.13.8
+ * scala-2.11.6
+ * zeromq-2.1.11
+ * Redis
 
 All this is automatically installed on the vagrant virtual box with Ansible.
 The virtual machine is bento/centos-7.1.
