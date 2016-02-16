@@ -46,7 +46,7 @@ Follow these instructions to start using the vagrant box.
  * After downloading, it will start the virtual machine.
  * After the startup is complete, it will start installing ansible on the virtual machine. Installing Ansible takes a while
  * After Ansible installation is complete, it will start provisioning the virtual machine with required software.
- * The provisioning output should look like following.
+ * The provisioning output should look similar to following. (It might be slightly different based on changes to Ansible playbook tasks)
  
 ```
 PLAY [all] ******************************************************************** 
