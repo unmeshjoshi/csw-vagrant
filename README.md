@@ -4,14 +4,13 @@ TMT Common Software Vagrant setup
 This repository has ansible scripts to provision Centos 7.1 linux with all the software required to run CSW. This also has a vagrant box which can be run on any developer machine.
 Following software packages are required for csw. 
 
- hornetq-2.4.0.Final-bin.tar.gz
- jdk-8u73-linux-x64.tar.gz
- sbt-0.13.8.tgz
- scala-2.11.6.tgz
- zeromq-2.1.11.tar.gz
- Redis
 
-Note that, as of now, binaries are copied into this repo, just to avoid downloads, in case you need to create box multiple times. It helps if you have slower internet speeds. It can be moved out later.
+ * hornetq-2.4.0
+ * jdk-8u73-linux-x64
+ * sbt-0.13.8
+ * scala-2.11.6
+ * zeromq-2.1.11
+ * Redis
 
 All this is automatically installed on the vagrant virtual box with Ansible.
 The virtual machine is bento/centos-7.1.
@@ -46,7 +45,7 @@ Follow these instructions to start using the vagrant box.
  * After downloading, it will start the virtual machine.
  * After the startup is complete, it will start installing ansible on the virtual machine. Installing Ansible takes a while
  * After Ansible installation is complete, it will start provisioning the virtual machine with required software.
- * The provisioning output should look like following.
+ * The provisioning output should look similar to following. (It might be slightly different based on changes to Ansible playbook tasks)
  
 ```
 PLAY [all] ******************************************************************** 
@@ -176,6 +175,40 @@ ok: [default]
     }
 }
  ```
+ * Add specific IP address to **csw-pkg-demo/hcd2/src/main/resources/zmq.conf
+ 
+ ```
+  zmq {
+    filter {
+      url = "tcp://192.168.33.10:6565"
+    }
+    disperser {
+      url = "tcp://192.168.33.10:6566"
+    }
+ }
+ 
+ ```
+ * Modify csw-pkg-demo/hardware/src/main/c/mtserver2.c to put specific IP address
+ ```
+   if (strcmp(argv[1], "filter") == 0) {
+       url = "tcp://192.168.33.10:6565";
+     } else if (strcmp(argv[1], "disperser") == 0) {
+        url = "tcp://192.168.33.10:6566";
+     }
+
+ ```
+ * LocationService does not work with IP6 IP addresses. So in csw-pkg-demo/build.sbt add following
+ 
+ ```
+ javaOptions in run += "-Djava.net.preferIPv4Stack=true"
+ 
+ ```
+ * Add same javaOptions in csw-play-demo/build.sbt
+ 
+ ```
+ javaOptions in run += "-Djava.net.preferIPv4Stack=true"
+ ```
+ 
  * Go to /vagrant/csw and run `./install.sh`. This should create /vagrant/install directory
  * Go to /vagrant/csw-pkg-demo and run `./install.sh`. 
  * Go to /vagrant/csw-play-demo and run `./install.sh`
