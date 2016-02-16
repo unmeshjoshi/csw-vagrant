@@ -176,6 +176,40 @@ ok: [default]
     }
 }
  ```
+ * Add specific IP address to **csw-pkg-demo/hcd2/src/main/resources/zmq.conf
+ 
+ ```
+  zmq {
+    filter {
+      url = "tcp://192.168.33.10:6565"
+    }
+    disperser {
+      url = "tcp://192.168.33.10:6566"
+    }
+ }
+ 
+ ```
+ * Modify csw-pkg-demo/hardware/src/main/c/mtserver2.c to put specific IP address
+ ```
+   if (strcmp(argv[1], "filter") == 0) {
+       url = "tcp://192.168.33.10:6565";
+     } else if (strcmp(argv[1], "disperser") == 0) {
+        url = "tcp://192.168.33.10:6566";
+     }
+
+ ```
+ * LocationService does not work with IP6 IP addresses. So in csw-pkg-demo/build.sbt add following
+ 
+ ```
+ javaOptions in run += "-Djava.net.preferIPv4Stack=true"
+ 
+ ```
+ * Add same javaOptions in csw-play-demo/build.sbt
+ 
+ ```
+ javaOptions in run += "-Djava.net.preferIPv4Stack=true"
+ ```
+ 
  * Go to /vagrant/csw and run `./install.sh`. This should create /vagrant/install directory
  * Go to /vagrant/csw-pkg-demo and run `./install.sh`. 
  * Go to /vagrant/csw-play-demo and run `./install.sh`
