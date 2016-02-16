@@ -197,16 +197,16 @@ ok: [default]
      }
 
  ```
- * LocationService does not work with IP6 IP addresses. So in csw-pkg-demo/build.sbt add following
+ * LocationService does not work with IP6 IP addresses. So in csw-pkg-demo/build.sbt add following in def packageSettings(
  
  ```
- javaOptions in run += "-Djava.net.preferIPv4Stack=true"
+ bashScriptExtraDefines ++= Seq(s"addJava -Djava.net.preferIPv4Stack=true")
  
  ```
- * Add same javaOptions in csw-play-demo/build.sbt
+ * Add same javaOptions in csw-play-demo/build.sbt in lazy val demoWebServer
  
  ```
- javaOptions in run += "-Djava.net.preferIPv4Stack=true"
+ bashScriptExtraDefines ++= Seq(s"addJava -Djava.net.preferIPv4Stack=true")
  ```
  
  * Go to /vagrant/csw and run `./install.sh`. This should create /vagrant/install directory
