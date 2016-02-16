@@ -1,9 +1,15 @@
 ---
-- name: Install SBT Repo
-  get_url: url='https://bintray.com/sbt/rpm/rpm'
-  args:
-    dest: /etc/yum.repos.d/bintray-sbt-rpm.repo
-    sha256sum: b23e9e9e105cdf4007a8ad29eccc034e3859634e9312a7d3f523864b166911fd
+- name: Check if scala is already installed
+  stat: path=/opt/sbt
+  register: sbt_installed
 
-- name: Install SBT
-  yum: name=sbt state=latest
+
+- name: Download sbt 0.13.9
+  get_url: url=https://dl.bintray.com/sbt/native-packages/sbt/0.13.9/sbt-0.13.9.tgz
+  args:
+    dest: /tmp
+  when: sbt_installed.stat.exists == False
+
+- name: unarchive scala
+  unarchive: src=/tmp/sbt-0.13.9.tgz dest=/opt copy=no
+  when: sbt_installed.stat.exists == False
